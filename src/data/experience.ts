@@ -25,23 +25,6 @@ export interface Reference {
 
 export const EXPERIENCE: ExperienceItem[] = [
   {
-    id: 'jne',
-    active: true,
-    date: '2025.11 → actual',
-    title: 'Full Stack Developer .Net / Angular',
-    meta: 'JNE, Lima, Perú',
-    modality: 'remoto',
-    bullets: [
-      'Desarrollo de APIs RESTful con .NET Framework, exponiendo servicios consumidos por módulos Angular con arquitectura por componentes.',
-      'Modelado y administración de base de datos Oracle: diseño de esquemas, stored procedures y packages para encapsular lógica de negocio compleja.',
-      'Construcción de vistas y flujos de usuario en Angular, integrando servicios HTTP y manejo reactivo de estado con RxJS.',
-      'Implementación de capas de acceso a datos con llamadas a procedures Oracle, garantizando trazabilidad y separación de responsabilidades.',
-      'Colaboración en ciclos ágiles, participando en revisión de requerimientos funcionales y entrega continua de módulos al equipo.',
-    ],
-    chips: ['.NET Framework', 'Angular', 'Oracle', 'RxJS', 'REST APIs'],
-    certificate: null,
-  },
-  {
     id: 'encora',
     active: true,
     date: '2025.08 → actual',
@@ -57,6 +40,23 @@ export const EXPERIENCE: ExperienceItem[] = [
       'Observabilidad y monitoreo con Azure API Management, Dynatrace y Grafana.',
     ],
     chips: ['Spring Boot', 'Azure', 'GitHub Copilot', 'OpenSpec', 'API-First', 'TBD', 'Feature Flags', 'Logic Apps', 'ADF'],
+    certificate: null,
+  },
+  {
+    id: 'jne',
+    active: false,
+    date: '2025.11 → 2026.08',
+    title: 'Full Stack Developer .Net / Angular',
+    meta: 'JNE, Lima, Perú',
+    modality: 'remoto',
+    bullets: [
+      'Desarrollo de APIs RESTful con .NET Framework, exponiendo servicios consumidos por módulos Angular con arquitectura por componentes.',
+      'Modelado y administración de base de datos Oracle: diseño de esquemas, stored procedures y packages para encapsular lógica de negocio compleja.',
+      'Construcción de vistas y flujos de usuario en Angular, integrando servicios HTTP y manejo reactivo de estado con RxJS.',
+      'Implementación de capas de acceso a datos con llamadas a procedures Oracle, garantizando trazabilidad y separación de responsabilidades.',
+      'Colaboración en ciclos ágiles, participando en revisión de requerimientos funcionales y entrega continua de módulos al equipo.',
+    ],
+    chips: ['.NET Framework', 'Angular', 'Oracle', 'RxJS', 'REST APIs'],
     certificate: null,
   },
   {
