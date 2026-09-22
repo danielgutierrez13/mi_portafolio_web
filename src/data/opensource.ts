@@ -24,6 +24,14 @@ export const OPEN_SOURCE: OpenSource = {
   profileUrl: 'https://github.com/danielgutierrez13',
   repos: [
     {
+      id: 'mi-portafolio-web',
+      name: 'mi_portafolio_web',
+      description:
+        'Este mismo portafolio: SPA en React 19 + TypeScript, CSS vanilla con design tokens, animaciones e interacciones, y cero librerías de UI. Open source bajo licencia MIT.',
+      language: 'TypeScript',
+      url: 'https://github.com/danielgutierrez13/mi_portafolio_web',
+    },
+    {
       id: 'wordle-game',
       name: 'wordle-game',
       description:
