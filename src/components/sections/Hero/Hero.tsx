@@ -5,8 +5,7 @@ import { Eyebrow } from '../../ui/Eyebrow';
 import { Lightbox } from '../../ui/Lightbox';
 import { ApiCard } from './ApiCard';
 import { HERO, type HeroMeta } from '../../../data/hero';
-import { CV_LABEL, CV_FILE_DEFAULT, CV_FILE_FULL } from '../../../data/cv';
-import { useFlags } from '../../../config/flags';
+import { CV_LABEL, CV_FILE_FULL } from '../../../data/cv';
 
 interface HeroMetaListProps {
   readonly items: HeroMeta[];
@@ -75,8 +74,7 @@ function CvModal({ open, onClose, file }: CvModalProps) {
 }
 
 export function Hero() {
-  const { showJne } = useFlags();
-  const cvFile = showJne ? CV_FILE_FULL : CV_FILE_DEFAULT;
+  const cvFile = CV_FILE_FULL;
   const { eyebrow, name, role, pitch, meta } = HERO;
   const [firstName, lastName] = name.split('\n');
   const [cvOpen, setCvOpen] = useState(false);

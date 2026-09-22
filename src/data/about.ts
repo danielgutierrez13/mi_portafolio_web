@@ -11,14 +11,12 @@ export interface Language {
 }
 
 export interface About {
-  readonly monogram: string;
   readonly facts: AboutFact[];
   readonly languages: Language[];
   readonly bio: string[];
 }
 
 export const ABOUT: About = {
-  monogram: 'CDGV',
   facts: [
     { icon: 'pin', label: 'Ubicación', value: 'Piura, Perú' },
     { icon: 'cap', label: 'Educación', value: 'Ingeniero Informático — UNP' },

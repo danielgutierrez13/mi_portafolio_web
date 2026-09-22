@@ -6,7 +6,6 @@ import { Icon } from '../../ui/Icon';
 import { Lightbox } from '../../ui/Lightbox';
 import { Section } from '../../layout/Section';
 import { EXPERIENCE, REFERENCES, type ExperienceItem, type Modality } from '../../../data/experience';
-import { useFlags } from '../../../config/flags';
 
 function parseDuration(dateRange: string): string {
   const [startStr, endStr] = dateRange.split(' → ');
@@ -190,7 +189,6 @@ function ReferencesBlock() {
 }
 
 export function Experience() {
-  const { showJne } = useFlags();
   const [activeCert, setActiveCert] = useState<ExperienceItem | null>(null);
 
   return (
@@ -201,7 +199,7 @@ export function Experience() {
         description="Cada etapa, registrada como un release: con fecha, estado y lo que se entregó."
       />
       <div className="timeline">
-        {EXPERIENCE.filter((item) => showJne || item.id !== 'jne').map((item) => (
+        {EXPERIENCE.map((item) => (
           <TimelineCard key={item.id} item={item} onOpenCert={setActiveCert} />
         ))}
       </div>

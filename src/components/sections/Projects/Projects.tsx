@@ -6,7 +6,6 @@ import { Section } from '../../layout/Section';
 import { ProjectLightbox } from './ProjectLightbox';
 import { useSwipe } from '../../../hooks/useSwipe';
 import { PROJECTS, type ProjectItem, type ProjectCategory } from '../../../data/projects';
-import { useFlags } from '../../../config/flags';
 
 type CategoryFilter = ProjectCategory | 'todos';
 
@@ -56,15 +55,12 @@ function ProjectCard({ item, onOpen }: ProjectCardProps) {
 }
 
 export function Projects() {
-  const { showJne } = useFlags();
   const [activeProject, setActiveProject] = useState<ProjectItem | null>(null);
   const [category, setCategory] = useState<CategoryFilter>('todos');
   const [current, setCurrent] = useState(0);
   const [perPage, setPerPage] = useState(2);
   const { eyebrow, heading, description, items: allItems } = PROJECTS;
-  const items = allItems
-    .filter((item) => showJne || item.badge !== 'JNE')
-    .filter((item) => category === 'todos' || item.category === category);
+  const items = allItems.filter((item) => category === 'todos' || item.category === category);
 
   const total = items.length;
   const pages = Math.ceil(total / perPage);

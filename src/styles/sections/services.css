@@ -48,4 +48,10 @@
 
 @media (max-width: 720px) {
   .services-grid { grid-template-columns: 1fr; }
+  /* En una sola columna, la última tarjeta ocupa todo el ancho como el resto. */
+  .services-grid > .service-card:last-child:nth-child(odd) {
+    grid-column: auto;
+    max-width: none;
+    margin-inline: 0;
+  }
 }

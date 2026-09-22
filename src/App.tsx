@@ -1,5 +1,4 @@
 import { ThemeProvider } from './context/ThemeProvider';
-import { FlagsProvider } from './context/FlagsProvider';
 import { SVGSprite } from './components/SVGSprite';
 import { Nav } from './components/Nav';
 import { Hero } from './components/sections/Hero/Hero';
@@ -15,7 +14,6 @@ import { Footer } from './components/Footer';
 
 export default function App() {
   return (
-    <FlagsProvider>
     <ThemeProvider>
       <SVGSprite />
       <Nav />
@@ -32,6 +30,5 @@ export default function App() {
       </main>
       <Footer />
     </ThemeProvider>
-    </FlagsProvider>
   );
 }

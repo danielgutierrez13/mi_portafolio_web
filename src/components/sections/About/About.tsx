@@ -3,12 +3,14 @@ import { Icon } from '../../ui/Icon';
 import { Eyebrow } from '../../ui/Eyebrow';
 import { ABOUT, type AboutFact, type Language } from '../../../data/about';
 
-interface MonogramProps {
-  readonly initials: string;
-}
-
-function Monogram({ initials }: MonogramProps) {
-  return <div className="monogram">{initials}</div>;
+function Monogram() {
+  return (
+    <div className="monogram" role="img" aria-label="Daniel Gutiérrez">
+      <span className="monogram__mark">
+        <span className="monogram__prompt">~/</span>d<span className="monogram__cursor">_</span>
+      </span>
+    </div>
+  );
 }
 
 interface FactListProps {
@@ -67,14 +69,14 @@ function AboutBio({ paragraphs }: AboutBioProps) {
 export function About() {
   const leftRef = useScrollReveal();
   const rightRef = useScrollReveal();
-  const { monogram, facts, languages, bio } = ABOUT;
+  const { facts, languages, bio } = ABOUT;
 
   return (
     <section className="section" id="sobre-mi">
       <div className="container">
         <div className="about__grid">
           <div className="reveal" ref={leftRef}>
-            <Monogram initials={monogram} />
+            <Monogram />
             <FactList facts={facts} />
             <LangBars languages={languages} />
           </div>
