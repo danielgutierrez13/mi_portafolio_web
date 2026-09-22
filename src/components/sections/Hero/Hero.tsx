@@ -6,6 +6,8 @@ import { Lightbox } from '../../ui/Lightbox';
 import { ApiCard } from './ApiCard';
 import { HERO, type HeroMeta } from '../../../data/hero';
 import { CV_LABEL, CV_FILE_FULL } from '../../../data/cv';
+import { TECH_LOGOS } from '../../../data/techLogos';
+import { SectionBackground } from '../../ui/SectionBackground';
 
 interface HeroMetaListProps {
   readonly items: HeroMeta[];
@@ -81,6 +83,7 @@ export function Hero() {
 
   return (
     <section className="hero" id="inicio">
+      <SectionBackground logos={TECH_LOGOS} />
       <div className="container hero__grid">
         <div className="hero__content">
           <Eyebrow>{eyebrow}</Eyebrow>
