@@ -7,16 +7,25 @@ import { NAV_LINKS } from '../data/nav';
 export function Nav() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [activeId, setActiveId] = useState<string>('');
   const { isDark, toggle } = useTheme();
 
   const closeMenu = () => setIsOpen(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 8);
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(scrollable > 0 ? Math.min(window.scrollY / scrollable, 1) : 0);
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -66,7 +75,10 @@ export function Nav() {
         <div className="nav__right">
           <button
             className="theme-toggle"
-            onClick={toggle}
+            onClick={(e) => {
+              const r = e.currentTarget.getBoundingClientRect();
+              toggle({ x: r.left + r.width / 2, y: r.top + r.height / 2 });
+            }}
             aria-label={isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
             aria-pressed={isDark}
           >
@@ -89,6 +101,7 @@ export function Nav() {
           </button>
         </div>
       </div>
+      <span className="nav__progress" style={{ transform: `scaleX(${progress})` }} aria-hidden="true" />
     </header>
   );
 }

@@ -1,4 +1,5 @@
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
+import { useCountUp } from '../../../hooks/useCountUp';
 import { SectionHead } from '../../ui/SectionHead';
 import { ChipRow } from '../../ui/Chip';
 import { Section } from '../../layout/Section';
@@ -10,18 +11,19 @@ interface MetricTileProps {
   readonly label: string;
 }
 function MetricTile({ num, label }: MetricTileProps) {
+  const { ref, display } = useCountUp(num);
   return (
     <div className="metric-tile">
-      <span className="num">{num}</span>
+      <span className="num" ref={ref}>{display}</span>
       <span className="label">{label}</span>
     </div>
   );
 }
 
-function SkillCard({ label, chips }: SkillGroup) {
-  const ref = useScrollReveal();
+function SkillCard({ label, chips, index }: SkillGroup & { index: number }) {
+  const ref = useScrollReveal<HTMLDivElement>();
   return (
-    <div className="skill-card reveal" ref={ref}>
+    <div className="skill-card reveal" ref={ref} style={{ transitionDelay: `${(index % 3) * 0.08}s` }}>
       <div className="skill-card__head">
         <span className="dot" aria-hidden="true" />
         {label}
@@ -44,8 +46,8 @@ export function Stack() {
         ))}
       </div>
       <div className="skills-grid">
-        {skills.map((skill) => (
-          <SkillCard key={skill.id} {...skill} />
+        {skills.map((skill, i) => (
+          <SkillCard key={skill.id} index={i} {...skill} />
         ))}
       </div>
     </Section>

@@ -1,3 +1,4 @@
+import { type CSSProperties } from 'react';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
 import { Icon } from '../../ui/Icon';
 import { Eyebrow } from '../../ui/Eyebrow';
@@ -46,7 +47,7 @@ function LangBars({ languages }: LangBarsProps) {
             <span>{level}</span>
           </div>
           <div className="lang-bar__track">
-            <div className="lang-bar__fill" style={{ width: `${pct}%` }} />
+            <div className="lang-bar__fill" style={{ '--pct': `${pct}%` } as CSSProperties} />
           </div>
         </div>
       ))}

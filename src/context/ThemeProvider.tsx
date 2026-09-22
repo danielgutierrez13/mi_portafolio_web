@@ -1,4 +1,5 @@
 import { type ReactNode, useState, useEffect, useCallback } from 'react';
+import { flushSync } from 'react-dom';
 import { ThemeContext } from './ThemeContext';
 
 interface ThemeProviderProps {
@@ -23,7 +24,22 @@ export function ThemeProvider({ children }: Readonly<ThemeProviderProps>) {
     }
   }, [isDark]);
 
-  const toggle = useCallback(() => setIsDark(prev => !prev), []);
+  const toggle = useCallback((origin?: { x: number; y: number }) => {
+    const root = document.documentElement;
+    const run = () => setIsDark(prev => !prev);
+    const startViewTransition = document.startViewTransition?.bind(document);
+    const reduce = globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+
+    if (!startViewTransition || reduce) {
+      run();
+      return;
+    }
+    if (origin) {
+      root.style.setProperty('--vt-x', `${origin.x}px`);
+      root.style.setProperty('--vt-y', `${origin.y}px`);
+    }
+    startViewTransition(() => flushSync(run));
+  }, []);
 
   return (
     <ThemeContext value={{ isDark, toggle }}>

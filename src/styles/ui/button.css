@@ -9,7 +9,8 @@
   border-radius: 999px;
   transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
 }
-.btn .icon { width: 16px; height: 16px; }
+.btn .icon { width: 16px; height: 16px; transition: transform .18s ease; }
+.btn:hover .icon { transform: translateX(3px); }
 
 .btn--primary {
   background: var(--primary);

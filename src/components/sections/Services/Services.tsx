@@ -5,10 +5,10 @@ import { Icon } from '../../ui/Icon';
 import { Section } from '../../layout/Section';
 import { SERVICES, type ServiceItem } from '../../../data/services';
 
-function ServiceCard({ icon, title, description, chips }: ServiceItem) {
-  const ref = useScrollReveal();
+function ServiceCard({ icon, title, description, chips, index }: ServiceItem & { index: number }) {
+  const ref = useScrollReveal<HTMLDivElement>();
   return (
-    <div className="service-card reveal" ref={ref}>
+    <div className="service-card reveal" ref={ref} style={{ transitionDelay: `${(index % 2) * 0.1}s` }}>
       <span className="service-card__icon" aria-hidden="true">
         <Icon id={icon} />
       </span>
@@ -26,8 +26,8 @@ export function Services() {
     <Section id="servicios" alt bg={['server', 'robot', 'mobile', 'spark', 'layers']}>
       <SectionHead eyebrow={eyebrow} heading={heading} description={description} />
       <div className="services-grid">
-        {items.map((item) => (
-          <ServiceCard key={item.id} {...item} />
+        {items.map((item, i) => (
+          <ServiceCard key={item.id} index={i} {...item} />
         ))}
       </div>
     </Section>

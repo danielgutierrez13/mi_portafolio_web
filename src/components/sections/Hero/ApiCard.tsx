@@ -6,6 +6,23 @@ function Timestamp() {
   return <span>{now.toLocaleString('es-PE', opts)}</span>;
 }
 
+const K = ({ children }: { children: string }) => <span className="tok-key">&quot;{children}&quot;</span>;
+const S = ({ children }: { children: string }) => <span className="tok-str">&quot;{children}&quot;</span>;
+
+const API_LINES = [
+  <>{'{'}</>,
+  <>{'  '}<K>nombre</K>{': '}<S>Cesar Daniel Gutiérrez Villegas</S>{','}</>,
+  <>{'  '}<K>rol</K>{': '}<S>Software Engineer II</S>{','}</>,
+  <>{'  '}<K>ubicacion</K>{': '}<S>Piura, Perú</S>{','}</>,
+  <>{'  '}<K>stack_principal</K>{': ['}</>,
+  <>{'    '}<S>Java</S>{', '}<S>Spring Boot</S>{','}</>,
+  <>{'    '}<S>Angular</S>{', '}<S>Azure</S></>,
+  <>{'  ],'}</>,
+  <>{'  '}<K>experiencia_anios</K>{': '}<span className="tok-num">4</span>{','}</>,
+  <>{'  '}<K>disponibilidad</K>{': '}<S>open_to_opportunities</S></>,
+  <>{'}'}</>,
+];
+
 export function ApiCard() {
   const ref = useScrollReveal();
 
@@ -23,17 +40,12 @@ export function ApiCard() {
         </div>
         <pre className="api-card__body">
           <code>
-            {'{\n'}
-            {'  '}<span className="tok-key">&quot;nombre&quot;</span>{': '}<span className="tok-str">&quot;Cesar Daniel Gutiérrez Villegas&quot;</span>{',\n'}
-            {'  '}<span className="tok-key">&quot;rol&quot;</span>{': '}<span className="tok-str">&quot;Software Engineer II&quot;</span>{',\n'}
-            {'  '}<span className="tok-key">&quot;ubicacion&quot;</span>{': '}<span className="tok-str">&quot;Piura, Perú&quot;</span>{',\n'}
-            {'  '}<span className="tok-key">&quot;stack_principal&quot;</span>{': [\n'}
-            {'    '}<span className="tok-str">&quot;Java&quot;</span>{', '}<span className="tok-str">&quot;Spring Boot&quot;</span>{',\n'}
-            {'    '}<span className="tok-str">&quot;Angular&quot;</span>{', '}<span className="tok-str">&quot;Azure&quot;</span>{'\n'}
-            {'  ],\n'}
-            {'  '}<span className="tok-key">&quot;experiencia_anios&quot;</span>{': '}<span className="tok-num">4</span>{',\n'}
-            {'  '}<span className="tok-key">&quot;disponibilidad&quot;</span>{': '}<span className="tok-str">&quot;open_to_opportunities&quot;</span>{'\n'}
-            {'}'}<span className="cursor-blink">|</span>
+            {API_LINES.map((line, i) => (
+              <span className="api-card__line" key={i} style={{ animationDelay: `${0.18 + i * 0.09}s` }}>
+                {line}
+                {i === API_LINES.length - 1 && <span className="cursor-blink">|</span>}
+              </span>
+            ))}
           </code>
         </pre>
       </div>

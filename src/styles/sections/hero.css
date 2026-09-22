@@ -71,6 +71,16 @@
   color: #A9AFC2;
   overflow-x: auto;
 }
+.api-card__line {
+  display: block;
+  opacity: 0;
+  transform: translateY(4px);
+  animation: api-line-in .34s ease forwards;
+}
+@keyframes api-line-in { to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .api-card__line { opacity: 1; transform: none; }
+}
 .tok-key { color: #7FB3FF; }
 .tok-str { color: #9FE6B6; }
 .tok-num { color: #F2C166; }

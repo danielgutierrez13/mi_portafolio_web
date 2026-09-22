@@ -20,6 +20,16 @@
 }
 .nav.is-scrolled .nav__inner { height: 60px; }
 
+.nav__progress {
+  position: absolute;
+  left: 0; bottom: -1px;
+  height: 2px; width: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--signal));
+  transform-origin: left center;
+  transform: scaleX(0);
+  will-change: transform;
+}
+
 .nav__logo {
   display: inline-flex;
   align-items: center;

@@ -51,7 +51,8 @@
   transition: background .15s, color .15s;
 }
 .projects-carousel__nav:hover { background: var(--bg-alt); color: var(--ink); }
-.projects-carousel__nav .icon { width: 16px; height: 16px; }
+.projects-carousel__nav .icon { width: 16px; height: 16px; transition: transform .18s ease; }
+.projects-carousel__nav:hover .icon { transform: scale(1.2); }
 .projects-carousel__counter {
   font-family: var(--font-mono);
   font-size: 13px;

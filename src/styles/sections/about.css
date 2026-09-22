@@ -30,7 +30,14 @@
 .lang-bars { display: flex; flex-direction: column; gap: 14px; }
 .lang-bar__head { display: flex; justify-content: space-between; font-size: 13.5px; font-family: var(--font-mono); margin-bottom: 6px; color: var(--ink-soft); }
 .lang-bar__track { height: 7px; background: var(--bg-alt); border-radius: 999px; overflow: hidden; }
-.lang-bar__fill { height: 100%; border-radius: 999px; background: var(--primary); }
+.lang-bar__fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--primary);
+  width: 0;
+  transition: width 1.1s cubic-bezier(.22, 1, .36, 1);
+}
+.reveal.is-visible .lang-bar__fill { width: var(--pct); }
 
 .about__text p { color: var(--ink-soft); font-size: 16.5px; margin-bottom: 20px; }
 .about__text p:last-child { margin-bottom: 0; }
