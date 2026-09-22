@@ -61,14 +61,16 @@
   background: rgba(255,255,255,.06);
   border: 1px solid rgba(255,255,255,.12);
   color: #9099B3;
-  transition: background .18s, color .18s, border-color .18s;
+  transition: background .18s, color .18s, border-color .18s, transform .2s cubic-bezier(.34, 1.56, .64, 1);
 }
 .contact-social__btn:hover {
   background: rgba(255,255,255,.14);
   border-color: rgba(255,255,255,.28);
   color: #fff;
+  transform: translateY(-4px) scale(1.06);
 }
-.contact-social__btn .icon { width: 20px; height: 20px; }
+.contact-social__btn .icon { width: 20px; height: 20px; transition: transform .2s ease; }
+.contact-social__btn:hover .icon { transform: scale(1.12); }
 
 @media (max-width: 860px) {
   .contact__grid { grid-template-columns: 1fr; gap: 36px; }

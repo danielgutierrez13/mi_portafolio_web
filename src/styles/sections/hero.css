@@ -1,4 +1,22 @@
 .hero { padding-block: 88px 56px; position: relative; overflow: hidden; }
+.hero__aurora {
+  position: absolute;
+  inset: -25%;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(70px);
+  opacity: .4;
+  background:
+    radial-gradient(38% 38% at 18% 28%, color-mix(in srgb, var(--primary) 55%, transparent), transparent 70%),
+    radial-gradient(34% 34% at 82% 22%, color-mix(in srgb, var(--signal) 45%, transparent), transparent 70%),
+    radial-gradient(42% 42% at 62% 82%, color-mix(in srgb, var(--accent) 40%, transparent), transparent 70%);
+  animation: aurora-drift 20s ease-in-out infinite alternate;
+}
+html[data-theme="dark"] .hero__aurora { opacity: .5; }
+@keyframes aurora-drift {
+  from { transform: translate3d(-3%, -2%, 0) scale(1); }
+  to { transform: translate3d(3%, 2%, 0) scale(1.12); }
+}
 .hero__grid {
   position: relative;
   z-index: 1;

@@ -5,5 +5,10 @@ interface EyebrowProps {
 }
 
 export function Eyebrow({ children }: EyebrowProps) {
-  return <span className="eyebrow">{children}</span>;
+  return (
+    <span className="eyebrow">
+      {children}
+      <span className="eyebrow__caret" aria-hidden="true" />
+    </span>
+  );
 }

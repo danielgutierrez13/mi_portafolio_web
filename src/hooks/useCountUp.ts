@@ -7,23 +7,28 @@ import { useEffect, useRef, useState } from 'react';
  */
 export function useCountUp(value: string, durationMs = 1200) {
   const ref = useRef<HTMLSpanElement>(null);
-  const parse = () => value.match(/^(\d[\d.]*)(.*)$/);
   const [display, setDisplay] = useState<string>(() => {
-    const m = parse();
+    const m = value.match(/^(\d[\d.]*)(.*)$/);
     return m ? `0${m[2]}` : value;
   });
 
   useEffect(() => {
     const el = ref.current;
-    const m = parse();
-    if (!el || !m) { setDisplay(value); return; }
+    const m = value.match(/^(\d[\d.]*)(.*)$/);
+    let raf = 0;
+    if (!el || !m) {
+      raf = requestAnimationFrame(() => setDisplay(value));
+      return () => cancelAnimationFrame(raf);
+    }
 
     const target = parseInt(m[1], 10);
     const suffix = m[2];
     const reduce = globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
-    if (reduce || !('IntersectionObserver' in globalThis)) { setDisplay(value); return; }
+    if (reduce || !('IntersectionObserver' in globalThis)) {
+      raf = requestAnimationFrame(() => setDisplay(value));
+      return () => cancelAnimationFrame(raf);
+    }
 
-    let raf = 0;
     let start = 0;
     let done = false;
 

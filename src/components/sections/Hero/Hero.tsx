@@ -8,6 +8,7 @@ import { HERO, type HeroMeta } from '../../../data/hero';
 import { CV_LABEL, CV_FILE_FULL } from '../../../data/cv';
 import { TECH_LOGOS } from '../../../data/techLogos';
 import { SectionBackground } from '../../ui/SectionBackground';
+import { ScrambleText } from '../../ui/ScrambleText';
 
 interface HeroMetaListProps {
   readonly items: HeroMeta[];
@@ -83,14 +84,15 @@ export function Hero() {
 
   return (
     <section className="hero" id="inicio">
+      <div className="hero__aurora" aria-hidden="true" />
       <SectionBackground logos={TECH_LOGOS} />
       <div className="container hero__grid">
         <div className="hero__content">
           <Eyebrow>{eyebrow}</Eyebrow>
           <h1 className="hero__title">
-            {firstName}
+            <ScrambleText text={firstName} />
             <br />
-            {lastName}
+            <ScrambleText text={lastName} />
           </h1>
           <p className="hero__role">
             {role.prefix}
