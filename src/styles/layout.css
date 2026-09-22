@@ -6,6 +6,9 @@
 
 .section { padding-block: clamp(52px, 6vw, 76px); }
 .section--alt { background: var(--bg-alt); }
+/* Section background layer (animated themed icons) sits behind the content. */
+.section, .contact { position: relative; overflow: hidden; }
+.section > .container, .contact > .container { position: relative; z-index: 1; }
 /* Cuando dos secciones con el MISMO fondo van seguidas, colapsamos el
    padding superior de la segunda para evitar un gran hueco vacío duplicado.
    En los bordes entre distinto fondo se mantiene el padding completo para

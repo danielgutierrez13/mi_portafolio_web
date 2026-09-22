@@ -192,7 +192,7 @@ export function Experience() {
   const [activeCert, setActiveCert] = useState<ExperienceItem | null>(null);
 
   return (
-    <Section id="experiencia">
+    <Section id="experiencia" bg={['briefcase', 'calendar', 'terminal', 'check', 'bolt']}>
       <SectionHead
         eyebrow="// historial-de-despliegues"
         heading="Experiencia profesional"

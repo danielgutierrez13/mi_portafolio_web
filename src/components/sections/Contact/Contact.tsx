@@ -2,6 +2,7 @@ import { useScrollReveal } from '../../../hooks/useScrollReveal';
 import { SectionHead } from '../../ui/SectionHead';
 import { Button } from '../../ui/Button';
 import { Icon } from '../../ui/Icon';
+import { SectionBackground } from '../../ui/SectionBackground';
 import { CONTACT, type SocialLink } from '../../../data/contact';
 
 interface TerminalProps {
@@ -71,6 +72,7 @@ export function Contact() {
 
   return (
     <section className="contact" id="contacto">
+      <SectionBackground icons={['mail', 'phone', 'whatsapp', 'pin', 'linkedin']} />
       <div className="container">
         <SectionHead eyebrow={eyebrow} heading={heading} description={description} />
         <div className="contact__grid">

@@ -1,6 +1,7 @@
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
 import { Icon } from '../../ui/Icon';
 import { Eyebrow } from '../../ui/Eyebrow';
+import { SectionBackground } from '../../ui/SectionBackground';
 import { ABOUT, type AboutFact, type Language } from '../../../data/about';
 
 function Monogram() {
@@ -73,6 +74,7 @@ export function About() {
 
   return (
     <section className="section" id="sobre-mi">
+      <SectionBackground icons={['user', 'cap', 'globe', 'pin', 'bolt']} />
       <div className="container">
         <div className="about__grid">
           <div className="reveal" ref={leftRef}>

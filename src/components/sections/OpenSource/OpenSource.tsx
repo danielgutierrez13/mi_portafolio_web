@@ -27,7 +27,7 @@ export function OpenSource() {
   const { eyebrow, heading, description, user, profileUrl, repos } = OPEN_SOURCE;
 
   return (
-    <Section id="open-source">
+    <Section id="open-source" bg={['github', 'star', 'fork', 'terminal']}>
       <SectionHead eyebrow={eyebrow} heading={heading} description={description} />
       <div className="opensource-grid">
         <a className="gh-profile reveal" ref={ref} href={profileUrl} target="_blank" rel="noopener">

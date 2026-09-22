@@ -23,7 +23,7 @@ export function Services() {
   const { eyebrow, heading, description, items } = SERVICES;
 
   return (
-    <Section id="servicios" alt>
+    <Section id="servicios" alt bg={['server', 'robot', 'mobile', 'spark', 'layers']}>
       <SectionHead eyebrow={eyebrow} heading={heading} description={description} />
       <div className="services-grid">
         {items.map((item) => (

@@ -1,0 +1,30 @@
+.section-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.section-bg__item {
+  position: absolute;
+  display: block;
+  animation-name: sbg-float;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+.section-bg__icon {
+  width: 100%;
+  height: 100%;
+  color: var(--ink);
+  opacity: .05;
+}
+html[data-theme="dark"] .section-bg__icon { opacity: .065; }
+
+/* Contact is always dark → force light silhouettes */
+.contact .section-bg__icon { color: #E7E9F3; opacity: .05; }
+
+@keyframes sbg-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-14px) rotate(3deg); }
+}

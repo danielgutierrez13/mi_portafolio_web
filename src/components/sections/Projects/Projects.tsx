@@ -91,7 +91,7 @@ export function Projects() {
   const visible = items.slice(start, start + perPage);
 
   return (
-    <Section id="proyectos">
+    <Section id="proyectos" bg={['folder', 'terminal', 'star', 'external', 'layers']}>
       <SectionHead eyebrow={eyebrow} heading={heading} description={description} />
       <div className="projects-filter" role="tablist" aria-label="Categorías de proyectos">
         {CATEGORY_TABS.map(({ value, label }) => (

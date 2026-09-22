@@ -3,6 +3,7 @@ import { SectionHead } from '../../ui/SectionHead';
 import { ChipRow } from '../../ui/Chip';
 import { Section } from '../../layout/Section';
 import { STACK, type SkillGroup } from '../../../data/stack';
+import { TECH_LOGOS } from '../../../data/techLogos';
 
 interface MetricTileProps {
   readonly num: string;
@@ -35,7 +36,7 @@ export function Stack() {
   const { eyebrow, heading, description, metrics, skills } = STACK;
 
   return (
-    <Section id="stack" alt>
+    <Section id="stack" alt bgLogos={TECH_LOGOS}>
       <SectionHead eyebrow={eyebrow} heading={heading} description={description} />
       <div className="metrics reveal" ref={ref}>
         {metrics.map(({ num, label }) => (

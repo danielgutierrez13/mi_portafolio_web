@@ -1,5 +1,7 @@
-.hero { padding-block: 88px 56px; }
+.hero { padding-block: 88px 56px; position: relative; overflow: hidden; }
 .hero__grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1.05fr .95fr;
   gap: 56px;

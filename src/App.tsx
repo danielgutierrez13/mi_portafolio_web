@@ -2,6 +2,7 @@ import { ThemeProvider } from './context/ThemeProvider';
 import { SVGSprite } from './components/SVGSprite';
 import { Nav } from './components/Nav';
 import { Hero } from './components/sections/Hero/Hero';
+import { TechMarquee } from './components/sections/TechMarquee/TechMarquee';
 import { About } from './components/sections/About/About';
 import { Stack } from './components/sections/Stack/Stack';
 import { Services } from './components/sections/Services/Services';
@@ -19,6 +20,7 @@ export default function App() {
       <Nav />
       <main>
         <Hero />
+        <TechMarquee />
         <About />
         <Stack />
         <Services />

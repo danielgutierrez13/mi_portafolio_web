@@ -143,7 +143,7 @@ export function Education() {
   const visible = certGroups.slice(current * perPage, current * perPage + perPage);
 
   return (
-    <Section id="formacion" alt>
+    <Section id="formacion" alt bg={['cap', 'file-pdf', 'check', 'star']}>
       <SectionHead eyebrow={eyebrow} heading={heading} description={description} />
       <div className="formacion__grid">
         <div className="reveal" ref={degreeRef}>
