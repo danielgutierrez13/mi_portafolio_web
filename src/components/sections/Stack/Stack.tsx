@@ -1,7 +1,7 @@
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
 import { useCountUp } from '../../../hooks/useCountUp';
 import { SectionHead } from '../../ui/SectionHead';
-import { ChipRow } from '../../ui/Chip';
+import { TechChipRow } from '../../ui/TechChipRow';
 import { Section } from '../../layout/Section';
 import { STACK, type SkillGroup } from '../../../data/stack';
 import { TECH_LOGOS } from '../../../data/techLogos';
@@ -28,7 +28,7 @@ function SkillCard({ label, chips, index }: SkillGroup & { index: number }) {
         <span className="dot" aria-hidden="true" />
         {label}
       </div>
-      <ChipRow chips={chips} />
+      <TechChipRow chips={chips} />
     </div>
   );
 }

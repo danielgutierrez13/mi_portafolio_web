@@ -1,4 +1,5 @@
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
+import { useTilt } from '../../../hooks/useTilt';
 import { SectionHead } from '../../ui/SectionHead';
 import { ChipRow } from '../../ui/Chip';
 import { Icon } from '../../ui/Icon';
@@ -7,6 +8,7 @@ import { SERVICES, type ServiceItem } from '../../../data/services';
 
 function ServiceCard({ icon, title, description, chips, index }: ServiceItem & { index: number }) {
   const ref = useScrollReveal<HTMLDivElement>();
+  useTilt(ref);
   return (
     <div className="service-card reveal" ref={ref} style={{ transitionDelay: `${(index % 2) * 0.1}s` }}>
       <span className="service-card__icon" aria-hidden="true">

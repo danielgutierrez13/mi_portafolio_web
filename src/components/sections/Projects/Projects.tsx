@@ -1,10 +1,11 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { SectionHead } from '../../ui/SectionHead';
 import { ChipRow } from '../../ui/Chip';
 import { Icon } from '../../ui/Icon';
 import { Section } from '../../layout/Section';
 import { ProjectLightbox } from './ProjectLightbox';
 import { useSwipe } from '../../../hooks/useSwipe';
+import { useTilt } from '../../../hooks/useTilt';
 import { PROJECTS, type ProjectItem, type ProjectCategory } from '../../../data/projects';
 
 type CategoryFilter = ProjectCategory | 'todos';
@@ -27,9 +28,11 @@ const CATEGORY_LABELS: Record<ProjectCategory, string> = {
 
 function ProjectCard({ item, onOpen }: ProjectCardProps) {
   const { category, placeholder, badge, title, role, releases, description, contribLabel, bullets, chips, linkLabel } = item;
+  const ref = useRef<HTMLDivElement>(null);
+  useTilt(ref);
 
   return (
-    <div className={`project-card${placeholder ? ' project-card--placeholder' : ''}`}>
+    <div className={`project-card${placeholder ? ' project-card--placeholder' : ''}`} ref={ref}>
       <div className="project-card__badges">
         {badge && <span className="project-card__badge">{badge}</span>}
         <span className={`project-card__category project-card__category--${category}`}>

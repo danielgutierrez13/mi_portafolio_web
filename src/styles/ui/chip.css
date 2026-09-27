@@ -9,6 +9,28 @@
   color: var(--ink);
 }
 
+.chip--logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding-left: 10px;
+  transition: background .18s ease, transform .18s ease;
+}
+.chip--logo:hover {
+  transform: translateY(-2px);
+  background: color-mix(in srgb, var(--logo-color) 16%, var(--bg-alt));
+}
+.chip__logo {
+  width: 14px; height: 14px;
+  color: var(--ink-soft);
+  transition: color .18s ease, transform .18s ease;
+}
+.chip--logo:hover .chip__logo { color: var(--logo-color); transform: scale(1.12); }
+/* Logos de marca oscuros (#000) se aclaran en modo oscuro para no perderse. */
+html[data-theme="dark"] .chip--logo:hover .chip__logo {
+  color: color-mix(in srgb, var(--logo-color) 68%, #e9ecf7);
+}
+
 .chip--cert {
   background: var(--bg-alt);
   border: 1px solid transparent;
