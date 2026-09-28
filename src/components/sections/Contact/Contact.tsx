@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
 import { SectionHead } from '../../ui/SectionHead';
 import { Button } from '../../ui/Button';
@@ -45,10 +46,26 @@ interface ContactActionsProps {
 
 function ContactActions({ email, phoneHref, socials }: ContactActionsProps) {
   const ref = useScrollReveal();
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2200);
+    } catch {
+      window.location.href = `mailto:${email}`;
+    }
+  };
+
   return (
     <div className="contact-actions reveal" ref={ref}>
       <Button variant="primary" href={`mailto:${email}`} icon="mail">Escribir un correo</Button>
       <Button variant="light" href={`tel:${phoneHref}`} icon="phone">Llamar ahora</Button>
+      <button type="button" className={`contact-copy${copied ? ' is-copied' : ''}`} onClick={copyEmail}>
+        <Icon id={copied ? 'check' : 'copy'} />
+        {copied ? 'Correo copiado' : 'Copiar correo'}
+      </button>
       <div className="contact-socials">
         {socials.map((s) => (
           <a

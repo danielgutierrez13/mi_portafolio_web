@@ -46,6 +46,9 @@
 
 .contact-actions { display: flex; flex-direction: column; gap: 16px; }
 .contact-actions .btn { justify-content: center; font-size: 16px; padding: 16px 24px; }
+.contact-copy { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 38px; color: #A9AFC2; font: 13px var(--font-mono); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius-sm); transition: color .18s, background .18s, border-color .18s; }
+.contact-copy:hover, .contact-copy.is-copied { color: #9FE6B6; border-color: rgba(159,230,182,.45); background: rgba(159,230,182,.08); }
+.contact-copy .icon { width: 15px; height: 15px; }
 
 .contact-socials {
   display: flex;

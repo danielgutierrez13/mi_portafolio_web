@@ -33,6 +33,20 @@ function ProjectCard({ item, onOpen }: ProjectCardProps) {
 
   return (
     <div className={`project-card${placeholder ? ' project-card--placeholder' : ''}`} ref={ref}>
+      <div className="project-card__preview" aria-hidden="true">
+        {item.images[0] ? (
+          <img src={item.images[0]} alt="" />
+        ) : (
+          <div className="project-preview-ui">
+            <span className="project-preview-ui__bar"><i /><i /><i /></span>
+            <span className="project-preview-ui__title">{title}</span>
+            <span className="project-preview-ui__line project-preview-ui__line--wide" />
+            <span className="project-preview-ui__line" />
+            <div className="project-preview-ui__tiles"><i /><i /><i /></div>
+          </div>
+        )}
+        <span className="project-card__preview-hint">Vista del proyecto</span>
+      </div>
       <div className="project-card__badges">
         {badge && <span className="project-card__badge">{badge}</span>}
         <span className={`project-card__category project-card__category--${category}`}>
@@ -120,7 +134,7 @@ export function Projects() {
           >
             <Icon id="chevron-left" />
           </button>
-          <div className="projects-carousel__track" ref={trackRef}>
+          <div className="projects-carousel__track" ref={trackRef} key={`${category}-${safeCurrent}`}>
             {visible.map((item) => (
               <ProjectCard key={item.id} item={item} onOpen={setActiveProject} />
             ))}
@@ -133,6 +147,18 @@ export function Projects() {
           >
             <Icon id="chevron-right" />
           </button>
+        </div>
+        <div className="projects-carousel__pagination" aria-label="Páginas de proyectos">
+          {Array.from({ length: pages }, (_, page) => (
+            <button
+              key={page}
+              type="button"
+              className={`projects-carousel__dot${page === safeCurrent ? ' is-active' : ''}`}
+              onClick={() => go(page)}
+              aria-label={`Ir a la página ${page + 1}`}
+              aria-current={page === safeCurrent ? 'true' : undefined}
+            />
+          ))}
         </div>
         <span className="projects-carousel__counter">{safeCurrent + 1} / {pages}</span>
       </div>

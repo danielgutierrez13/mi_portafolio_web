@@ -3,6 +3,7 @@
   padding-left: 32px;
   border-left: 2px solid var(--border);
 }
+.timeline::before { content: ''; position: absolute; left: -2px; top: 0; width: 2px; height: min(180px, 24%); background: var(--primary); box-shadow: 0 0 14px color-mix(in srgb, var(--primary) 45%, transparent); }
 .timeline-item {
   position: relative;
   padding-bottom: 48px;
@@ -28,7 +29,9 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   overflow: hidden;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
 }
+.timeline-card:hover { transform: translateX(5px); box-shadow: var(--shadow-card-hover); }
 .timeline-card--open { border-color: color-mix(in srgb, var(--primary) 35%, var(--border)); }
 
 .timeline-card__header {
