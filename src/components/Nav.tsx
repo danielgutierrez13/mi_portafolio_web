@@ -30,7 +30,8 @@ export function Nav() {
 
   useEffect(() => {
     const sections = NAV_LINKS
-      .map(({ href }) => document.getElementById(href.slice(1)))
+      .flatMap(({ href, relatedSections = [] }) => [href.slice(1), ...relatedSections])
+      .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null);
     if (!sections.length) return;
 
@@ -55,8 +56,8 @@ export function Nav() {
         </a>
 
         <nav className="nav__links" id="navLinks">
-          {NAV_LINKS.map(({ href, label, icon }) => {
-            const isActive = activeId === href.slice(1);
+          {NAV_LINKS.map(({ href, label, icon, relatedSections = [] }) => {
+            const isActive = activeId === href.slice(1) || relatedSections.includes(activeId);
             return (
               <a
                 key={href}
