@@ -5,7 +5,7 @@ import { Eyebrow } from '../../ui/Eyebrow';
 import { Lightbox } from '../../ui/Lightbox';
 import { ApiCard } from './ApiCard';
 import { HERO, type HeroMeta } from '../../../data/hero';
-import { CV_LABEL, CV_FILE_FULL } from '../../../data/cv';
+import { CV_FILE_WORD, CV_LABEL, CV_FILE_FULL } from '../../../data/cv';
 import { TECH_LOGOS } from '../../../data/techLogos';
 import { SectionBackground } from '../../ui/SectionBackground';
 import { ScrambleText } from '../../ui/ScrambleText';
@@ -35,6 +35,7 @@ interface CvModalProps {
   readonly open: boolean;
   readonly onClose: () => void;
   readonly file: string;
+  readonly wordFile: string;
 }
 
 async function downloadCv(file: string, filename: string) {
@@ -55,7 +56,7 @@ async function downloadCv(file: string, filename: string) {
   }
 }
 
-function CvModal({ open, onClose, file }: CvModalProps) {
+function CvModal({ open, onClose, file, wordFile }: CvModalProps) {
   return (
     <Lightbox isOpen={open} onClose={onClose} labelId="cvLightboxTitle">
       <div className="lightbox__image-wrap">
@@ -63,14 +64,23 @@ function CvModal({ open, onClose, file }: CvModalProps) {
       </div>
       <div className="lightbox__meta">
         <h3 id="cvLightboxTitle">{CV_LABEL}</h3>
-        <button
-          type="button"
-          className="btn btn--primary"
-          style={{ marginTop: 8 }}
-          onClick={() => downloadCv(file, `${CV_LABEL}.pdf`)}
-        >
-          <Icon id="download" /> Descargar CV
-        </button>
+        <p className="lightbox__detail">¿En qué formato deseas descargar el CV?</p>
+        <div className="lightbox__download-actions">
+          <button
+            type="button"
+            className="btn btn--primary"
+            onClick={() => downloadCv(file, `${CV_LABEL}.pdf`)}
+          >
+            <Icon id="download" /> Descargar PDF
+          </button>
+          <button
+            type="button"
+            className="btn btn--ghost"
+            onClick={() => downloadCv(wordFile, `${CV_LABEL}.docx`)}
+          >
+            <Icon id="download" /> Descargar Word
+          </button>
+        </div>
       </div>
     </Lightbox>
   );
@@ -78,6 +88,7 @@ function CvModal({ open, onClose, file }: CvModalProps) {
 
 export function Hero() {
   const cvFile = CV_FILE_FULL;
+  const cvWordFile = CV_FILE_WORD;
   const { eyebrow, name, role, pitch, meta } = HERO;
   const [firstName, lastName] = name.split('\n');
   const [cvOpen, setCvOpen] = useState(false);
@@ -111,7 +122,7 @@ export function Hero() {
         </div>
         <ApiCard />
       </div>
-      <CvModal open={cvOpen} onClose={() => setCvOpen(false)} file={cvFile} />
+      <CvModal open={cvOpen} onClose={() => setCvOpen(false)} file={cvFile} wordFile={cvWordFile} />
     </section>
   );
 }
