@@ -40,7 +40,7 @@ export const EXPERIENCE: ExperienceItem[] = [
       'Observabilidad y monitoreo con Azure API Management, Dynatrace y Grafana.',
     ],
     chips: ['Spring Boot', 'Azure', 'GitHub Copilot', 'OpenSpec', 'API-First', 'TBD', 'Feature Flags', 'Logic Apps', 'ADF'],
-    certificate: null,
+    certificate: '/docs/experience/coforge-constancia.pdf',
   },
   {
     id: 'jne',

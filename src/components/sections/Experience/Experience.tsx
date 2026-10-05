@@ -100,10 +100,10 @@ function TimelineCard({ item, onOpenCert }: TimelineCardProps) {
               {bullets.map((b) => <li key={b}>{b}</li>)}
             </ul>
             <ChipRow chips={chips} />
-            {!active && (
+            {certificate && (
               <button type="button" className="edu-card__doc-btn" onClick={() => onOpenCert(item)}>
-                <Icon id={certificate ? (certificate.toLowerCase().endsWith('.pdf') ? 'external' : 'image') : 'image'} />
-                {certificate ? 'Ver certificado de trabajo' : 'Certificado pendiente de subir'}
+                <Icon id={certificate.toLowerCase().endsWith('.pdf') ? 'external' : 'image'} />
+                Ver constancia de trabajo
               </button>
             )}
           </div>
