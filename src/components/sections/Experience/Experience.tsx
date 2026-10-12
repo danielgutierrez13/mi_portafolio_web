@@ -1,7 +1,7 @@
 import { useState, useId } from 'react';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
 import { SectionHead } from '../../ui/SectionHead';
-import { ChipRow } from '../../ui/Chip';
+import { TechChipRow } from '../../ui/TechChipRow';
 import { Icon } from '../../ui/Icon';
 import { Lightbox } from '../../ui/Lightbox';
 import { Section } from '../../layout/Section';
@@ -99,7 +99,10 @@ function TimelineCard({ item, onOpenCert }: TimelineCardProps) {
             <ul>
               {bullets.map((b) => <li key={b}>{b}</li>)}
             </ul>
-            <ChipRow chips={chips} />
+            <div className="timeline-card__skills">
+              <span className="timeline-card__skills-label">Skills</span>
+              <TechChipRow chips={chips} />
+            </div>
             {certificate && (
               <button type="button" className="edu-card__doc-btn" onClick={() => onOpenCert(item)}>
                 <Icon id={certificate.toLowerCase().endsWith('.pdf') ? 'external' : 'image'} />

@@ -1,7 +1,7 @@
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
 import { useTilt } from '../../../hooks/useTilt';
 import { SectionHead } from '../../ui/SectionHead';
-import { ChipRow } from '../../ui/Chip';
+import { TechChipRow } from '../../ui/TechChipRow';
 import { Icon } from '../../ui/Icon';
 import { Section } from '../../layout/Section';
 import { SERVICES, type ServiceItem } from '../../../data/services';
@@ -16,7 +16,7 @@ function ServiceCard({ icon, title, description, chips, index }: ServiceItem & {
       </span>
       <h3>{title}</h3>
       <p>{description}</p>
-      <ChipRow chips={chips} />
+      <TechChipRow chips={chips} />
     </div>
   );
 }

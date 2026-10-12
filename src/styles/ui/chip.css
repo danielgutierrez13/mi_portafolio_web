@@ -26,6 +26,8 @@
   transition: color .18s ease, transform .18s ease;
 }
 .chip--logo:hover .chip__logo { color: var(--logo-color); transform: scale(1.12); }
+.chip--logo--fallback .chip__logo { color: var(--primary); }
+.chip--logo--fallback:hover { background: color-mix(in srgb, var(--primary) 16%, var(--bg-alt)); }
 /* Logos de marca oscuros (#000) se aclaran en modo oscuro para no perderse. */
 html[data-theme="dark"] .chip--logo:hover .chip__logo {
   color: color-mix(in srgb, var(--logo-color) 68%, #e9ecf7);
