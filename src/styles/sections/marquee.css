@@ -21,14 +21,17 @@
 }
 .tech-marquee__logo {
   width: 26px; height: 26px;
-  color: var(--ink-soft);
-  opacity: .65;
-  transition: color .2s ease, opacity .2s ease, transform .2s ease;
+  color: var(--logo-color);
+  opacity: .95;
+  transition: opacity .2s ease, transform .2s ease;
 }
 .tech-marquee__item:hover .tech-marquee__logo {
-  color: var(--logo-color);
   opacity: 1;
   transform: translateY(-2px);
+}
+/* Logos de marca oscuros (#000) se aclaran en modo oscuro para no perderse. */
+html[data-theme="dark"] .tech-marquee__logo {
+  color: color-mix(in srgb, var(--logo-color) 68%, #e9ecf7);
 }
 .tech-marquee__label {
   font-family: var(--font-mono);
