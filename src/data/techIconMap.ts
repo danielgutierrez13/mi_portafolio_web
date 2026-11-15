@@ -211,3 +211,24 @@ TECH_ICON_MAP["SOLID"] ??= {
   color: "#6366F1",
   path: "M12 2 2 7l10 5 10-5-10-5zm-8.200 9.300L2 12l10 5 10-5-1.800-.7L12 15 3.800 11.300zm0 4.500L2 16.500l10 5 10-5-1.800-.7L12 19.500 3.800 15.800z"
 };
+
+// Alias hacia el logo de la tecnología base.
+TECH_ICON_MAP["Azure Queues"] ??= TECH_ICON_MAP["Azure"];
+TECH_ICON_MAP["AWS S3"] ??= TECH_ICON_MAP["AWS"];
+TECH_ICON_MAP["Riverpod"] ??= TECH_ICON_MAP["Flutter"];
+TECH_ICON_MAP["go_router"] ??= TECH_ICON_MAP["Flutter"];
+TECH_ICON_MAP["fl_chart"] ??= TECH_ICON_MAP["Flutter"];
+TECH_ICON_MAP["IA"] ??= TECH_ICON_MAP["Agentes"];
+
+// Iconos genéricos para marcas sin logo oficial disponible.
+Object.assign(TECH_ICON_MAP, {
+  "Power BI": { color: "#F2C811", path: "M9 2h5v20H9V2zm6 4h5v16h-5V6zM3 11h5v11H3V11z" },
+  "ServiceNow": { color: "#62D84E", path: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 5a5 5 0 1 1 0 10 5 5 0 0 1 0-10z" },
+  "File Server": { color: "#64748B", path: "M3 4h18v6H3V4zm0 10h18v6H3v-6z" },
+  "SMTP": { color: "#0EA5E9", path: "M2 5h20v2.500l-10 6.500L2 7.500V5zm0 5.200 10 6.500 10-6.500V19H2v-8.800z" },
+  "Excel": { color: "#217346", path: "M3 3h18v4H3V3zm0 6h8v5H3V9zm10 0h8v5h-8V9zM3 16h8v5H3v-5zm10 0h8v5h-8v-5z" },
+  "Yape": { color: "#742284", path: "M2 5h20v4H2V5zm0 6h20v8H2v-8z" },
+  "Monokera": { color: "#0EA5E9", path: "M2 5h20v4H2V5zm0 6h20v8H2v-8z" },
+  "Mockito": { color: "#78A641", path: "M12 2 3 6v6c0 5 4 9 9 10 5-1 9-5 9-10V6l-9-4z" },
+  "Twig": { color: "#9CB01B", path: "M12 2C7 5 4 9 4 14c0 4 3 8 8 8s8-4 8-8c0-5-3-9-8-12z" },
+} satisfies Record<string, TechIcon>);

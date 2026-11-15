@@ -24,6 +24,9 @@ const MAP = {
   'Telegram API': ['siTelegram'],
   Postman: ['siPostman'],
   JUnit: ['siJunit5'],
+  TensorFlow: ['siTensorflow'],
+  Doctrine: ['siDoctrine'],
+  'Webpack Encore': ['siWebpack'],
 };
 
 const out = {};

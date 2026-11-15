@@ -1,6 +1,7 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, type CSSProperties } from 'react';
 import { SectionHead } from '../../ui/SectionHead';
-import { ChipRow } from '../../ui/Chip';
+import { TechChipRow } from '../../ui/TechChipRow';
+import { TECH_ICON_MAP } from '../../../data/techIconMap';
 import { Icon } from '../../ui/Icon';
 import { Section } from '../../layout/Section';
 import { ProjectLightbox } from './ProjectLightbox';
@@ -12,6 +13,8 @@ import { useT } from '../../../i18n/ui';
 
 type CategoryFilter = ProjectCategory | 'todos';
 
+const MAX_CHIPS = 6;
+
 interface ProjectCardProps {
   readonly item: ProjectItem;
   readonly onOpen: (item: ProjectItem) => void;
@@ -22,10 +25,13 @@ function ProjectCard({ item, onOpen }: ProjectCardProps) {
   const ref = useRef<HTMLDivElement>(null);
   useTilt(ref);
   const t = useT();
+  const previewIcons = chips.flatMap((name) => (TECH_ICON_MAP[name] ? [{ name, ...TECH_ICON_MAP[name] }] : [])).slice(0, 4);
+  const visibleChips = chips.slice(0, MAX_CHIPS);
+  const hiddenChips = chips.length - visibleChips.length;
   const categoryLabels: Record<ProjectCategory, string> = { laboral: t.categoryWork, personal: t.categoryPersonal };
 
   return (
-    <div className={`project-card${placeholder ? ' project-card--placeholder' : ''}`} ref={ref}>
+    <div className={`project-card project-card--${category}${placeholder ? ' project-card--placeholder' : ''}`} ref={ref}>
       <div className="project-card__preview" aria-hidden="true">
         {item.images[0] ? (
           <img src={item.images[0]} alt="" />
@@ -35,7 +41,13 @@ function ProjectCard({ item, onOpen }: ProjectCardProps) {
             <span className="project-preview-ui__title">{title}</span>
             <span className="project-preview-ui__line project-preview-ui__line--wide" />
             <span className="project-preview-ui__line" />
-            <div className="project-preview-ui__tiles"><i /><i /><i /></div>
+            <div className="project-preview-ui__tiles">
+              {previewIcons.map(({ name, color, path }) => (
+                <span key={name} className="project-preview-ui__logo" style={{ '--logo-color': color } as CSSProperties} title={name}>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d={path} fill="currentColor" /></svg>
+                </span>
+              ))}
+            </div>
           </div>
         )}
         <span className="project-card__preview-hint">{t.projectPreview}</span>
@@ -50,15 +62,18 @@ function ProjectCard({ item, onOpen }: ProjectCardProps) {
         <h3>{title}</h3>
         {releases && <span className="project-card__releases">{releases}</span>}
       </div>
-      <span className="role-tag" style={{ marginBottom: 10, display: 'inline-block' }}>{role}</span>
+      <span className="role-tag"><Icon id="terminal" />{role}</span>
       <p className="desc">{description}</p>
       <span className="contrib-label">{contribLabel}</span>
       <ul>
         {bullets.map((b) => <li key={b}>{b}</li>)}
       </ul>
-      <ChipRow chips={chips} className="chip-row" />
+      <div className="project-card__stack">
+        <TechChipRow chips={visibleChips} />
+        {hiddenChips > 0 && <span className="chip project-card__more">+{hiddenChips}</span>}
+      </div>
       <button type="button" className="project-card__link" onClick={() => onOpen(item)}>
-        {linkLabel} <Icon id="external" />
+        <span>{linkLabel}</span> <Icon id="arrow" />
       </button>
     </div>
   );

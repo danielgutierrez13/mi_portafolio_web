@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { EXPERIENCE } from './experience';
 import { STACK } from './stack';
 import { SERVICES } from './services';
+import { PROJECTS } from './projects';
 import { TECH_ICON_MAP } from './techIconMap';
 import { TECH_LOGOS } from './techLogos';
 import { NAV_LINKS } from './nav';
@@ -12,6 +13,7 @@ const allChips = [
   ...EXPERIENCE.flatMap((e) => e.chips),
   ...STACK.skills.flatMap((s) => s.chips),
   ...SERVICES.items.flatMap((s) => s.chips),
+  ...PROJECTS.items.flatMap((p) => p.chips),
 ];
 
 describe('iconos de tecnologías', () => {
