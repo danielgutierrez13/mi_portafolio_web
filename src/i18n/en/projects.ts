@@ -182,6 +182,30 @@ export const PROJECTS_EN: Record<string, ProjectEn> = {
     ],
     linkLabel: 'View project',
   },
+  'proyecto-fordevs-facturador': {
+    title: 'Fordevs Facturador — SUNAT e-invoicing',
+    description:
+      'Electronic invoicing service: receives JSON, generates the UBL 2.1 XML, signs it with each company’s certificate, validates it against XSD and sends it to SUNAT from a queue, with an admin web app. Tested against SUNAT’s BETA environment.',
+    bullets: [
+      'Designed the reactive API (Spring Boot 4, WebFlux, R2DBC and Liquibase) that generates, signs and XSD-validates twelve document types: invoices, receipts, notes, summaries, voids, dispatch guides, withholdings and perceptions.',
+      'Split the service into receiver and worker from the same artifact, with a PostgreSQL queue, sequential per-company sending, retries, idempotency and recovery of uncertain submissions.',
+      'Implemented multi-company security: API keys stored as SHA-256 hashes, certificates and SOL credentials encrypted with AES-256-GCM, and per-key rate limiting.',
+      'Built the Angular admin web app (companies, certificates, sent documents with SUNAT’s response and XML/CDR downloads) and the Docker and GitHub Actions deployment.',
+    ],
+    linkLabel: 'View project',
+  },
+  'proyecto-tienda-virtual': {
+    title: 'Tienda Virtual — Multi-company SaaS for corner stores',
+    description:
+      'Platform for small shops that combines an online store per subdomain, point of sale, per-branch inventory and SUNAT e-invoicing, with an admin panel.',
+    bullets: [
+      'Built the reactive API with Spring Boot (WebFlux, R2DBC, Liquibase) as a feature-based modular monolith, with shared or dedicated PostgreSQL databases per company resolved by tenant.',
+      'Implemented the web purchase flow: server-side repricing at checkout, stock reservation, order states through invoicing, and receipt or invoice issuance to SUNAT.',
+      'Built the advanced catalog (variants, combos, volume pricing, coupons, offers and a “Build your box” feature with capacity rules) and the point of sale with cash registers and barcode scanners.',
+      'Secured the platform with JWT (access and rotating refresh tokens) and database-driven route-to-role authorization with caching; built the Angular 22 frontend serving both the public store and the panel.',
+    ],
+    linkLabel: 'View project',
+  },
   'proyecto-finpar': {
     badge: 'Personal project',
     title: 'FinPar — Personal and couples finance',
