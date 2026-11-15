@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useCarousel } from '../../../hooks/useCarousel';
 import { Icon } from '../../ui/Icon';
+import { useT } from '../../../i18n/ui';
 
 const PLACEHOLDER = ['__placeholder__'];
 
@@ -8,11 +9,12 @@ interface EmptySlideProps {
   readonly confidential?: boolean;
 }
 function EmptySlide({ confidential }: EmptySlideProps) {
+  const t = useT();
   return (
     <div className="carousel__slide">
       <div className="lightbox__placeholder">
         <Icon id="image" />
-        <span>{confidential ? 'Capturas no disponibles por confidencialidad' : 'Capturas del proyecto pendientes de subir'}</span>
+        <span>{confidential ? t.shotsConfidential : t.shotsPending}</span>
       </div>
     </div>
   );
@@ -24,6 +26,7 @@ interface CarouselProps {
 }
 
 export function Carousel({ images, confidential }: CarouselProps) {
+  const t = useT();
   const hasSlides = images.length > 0;
   const slides = hasSlides ? images : PLACEHOLDER;
   const { current, go, prev, next } = useCarousel(slides);
@@ -57,7 +60,7 @@ export function Carousel({ images, confidential }: CarouselProps) {
         {hasSlides
           ? images.map((src) => (
               <div key={src} className="carousel__slide">
-                <img src={src} alt="Captura del proyecto" />
+                <img src={src} alt={t.screenshotAlt} />
               </div>
             ))
           : <EmptySlide confidential={confidential} />}
@@ -65,10 +68,10 @@ export function Carousel({ images, confidential }: CarouselProps) {
 
       {!isSingle && (
         <>
-          <button className="carousel__nav carousel__nav--prev" onClick={prev} aria-label="Captura anterior">
+          <button className="carousel__nav carousel__nav--prev" onClick={prev} aria-label={t.prevShot}>
             <Icon id="chevron-left" />
           </button>
-          <button className="carousel__nav carousel__nav--next" onClick={next} aria-label="Siguiente captura">
+          <button className="carousel__nav carousel__nav--next" onClick={next} aria-label={t.nextShot}>
             <Icon id="chevron-right" />
           </button>
           <div className="carousel__dots">
@@ -78,7 +81,7 @@ export function Carousel({ images, confidential }: CarouselProps) {
                 type="button"
                 className={`carousel__dot${i === current ? ' is-active' : ''}`}
                 onClick={() => go(i)}
-                aria-label={`Ir a captura ${i + 1}`}
+                aria-label={t.goToShot(i + 1)}
               />
             ))}
           </div>

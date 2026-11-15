@@ -4,7 +4,8 @@ import { SectionHead } from '../../ui/SectionHead';
 import { TechChipRow } from '../../ui/TechChipRow';
 import { Icon } from '../../ui/Icon';
 import { Section } from '../../layout/Section';
-import { SERVICES, type ServiceItem } from '../../../data/services';
+import { type ServiceItem } from '../../../data/services';
+import { useData } from '../../../i18n/useData';
 
 function ServiceCard({ icon, title, description, chips, index }: ServiceItem & { index: number }) {
   const ref = useScrollReveal<HTMLDivElement>();
@@ -22,6 +23,7 @@ function ServiceCard({ icon, title, description, chips, index }: ServiceItem & {
 }
 
 export function Services() {
+  const { SERVICES } = useData();
   const { eyebrow, heading, description, items } = SERVICES;
 
   return (

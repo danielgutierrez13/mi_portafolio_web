@@ -107,6 +107,20 @@
 }
 .theme-toggle:hover { color: var(--primary); border-color: var(--primary); transform: translateY(-1px) rotate(12deg); }
 .theme-toggle .icon { width: 18px; height: 18px; }
+.lang-toggle {
+  min-width: 40px; height: 40px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1.5px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--ink-soft);
+  transition: color .15s ease, border-color .15s ease, transform .2s ease;
+  flex-shrink: 0;
+}
+.lang-toggle:hover { color: var(--primary); border-color: var(--primary); transform: translateY(-1px); }
 .theme-toggle .icon-moon { display: none; }
 html[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
 html[data-theme="dark"] .theme-toggle .icon-moon { display: block; }

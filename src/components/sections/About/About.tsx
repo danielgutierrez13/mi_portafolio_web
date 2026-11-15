@@ -3,7 +3,9 @@ import { useScrollReveal } from '../../../hooks/useScrollReveal';
 import { Icon } from '../../ui/Icon';
 import { Eyebrow } from '../../ui/Eyebrow';
 import { SectionBackground } from '../../ui/SectionBackground';
-import { ABOUT, type AboutFact, type Language } from '../../../data/about';
+import { type AboutFact, type Language } from '../../../data/about';
+import { useData } from '../../../i18n/useData';
+import { useT } from '../../../i18n/ui';
 
 function Monogram() {
   return (
@@ -71,6 +73,8 @@ function AboutBio({ paragraphs }: AboutBioProps) {
 export function About() {
   const leftRef = useScrollReveal();
   const rightRef = useScrollReveal();
+  const { ABOUT } = useData();
+  const t = useT();
   const { facts, languages, bio } = ABOUT;
 
   return (
@@ -84,9 +88,9 @@ export function About() {
             <LangBars languages={languages} />
           </div>
           <div className="reveal" ref={rightRef}>
-            <Eyebrow>{'// sobre-mi'}</Eyebrow>
+            <Eyebrow>{t.aboutEyebrow}</Eyebrow>
             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(26px,3.6vw,34px)', fontWeight: 700, marginBottom: 22, letterSpacing: '-0.01em' }}>
-              Construyo software que sigue funcionando mucho después del primer despliegue
+              {t.aboutHeading}
             </h2>
             <AboutBio paragraphs={bio} />
           </div>

@@ -4,7 +4,9 @@ import { Button } from '../../ui/Button';
 import { Eyebrow } from '../../ui/Eyebrow';
 import { Lightbox } from '../../ui/Lightbox';
 import { ApiCard } from './ApiCard';
-import { HERO, type HeroMeta } from '../../../data/hero';
+import { type HeroMeta } from '../../../data/hero';
+import { useData } from '../../../i18n/useData';
+import { useT } from '../../../i18n/ui';
 import { CV_FILE_WORD, CV_LABEL, CV_FILE_FULL } from '../../../data/cv';
 import { TECH_LOGOS } from '../../../data/techLogos';
 import { SectionBackground } from '../../ui/SectionBackground';
@@ -57,6 +59,7 @@ async function downloadCv(file: string, filename: string) {
 }
 
 function CvModal({ open, onClose, file, wordFile }: CvModalProps) {
+  const t = useT();
   return (
     <Lightbox isOpen={open} onClose={onClose} labelId="cvLightboxTitle">
       <div className="lightbox__image-wrap">
@@ -64,21 +67,21 @@ function CvModal({ open, onClose, file, wordFile }: CvModalProps) {
       </div>
       <div className="lightbox__meta">
         <h3 id="cvLightboxTitle">{CV_LABEL}</h3>
-        <p className="lightbox__detail">¿En qué formato deseas descargar el CV?</p>
+        <p className="lightbox__detail">{t.cvFormatQuestion}</p>
         <div className="lightbox__download-actions">
           <button
             type="button"
             className="btn btn--primary"
             onClick={() => downloadCv(file, `${CV_LABEL}.pdf`)}
           >
-            <Icon id="download" /> Descargar PDF
+            <Icon id="download" /> {t.downloadPdf}
           </button>
           <button
             type="button"
             className="btn btn--ghost"
             onClick={() => downloadCv(wordFile, `${CV_LABEL}.docx`)}
           >
-            <Icon id="download" /> Descargar Word
+            <Icon id="download" /> {t.downloadWord}
           </button>
         </div>
       </div>
@@ -89,6 +92,8 @@ function CvModal({ open, onClose, file, wordFile }: CvModalProps) {
 export function Hero() {
   const cvFile = CV_FILE_FULL;
   const cvWordFile = CV_FILE_WORD;
+  const { HERO } = useData();
+  const t = useT();
   const { eyebrow, name, role, pitch, meta } = HERO;
   const [firstName, lastName] = name.split('\n');
   const [cvOpen, setCvOpen] = useState(false);
@@ -112,10 +117,10 @@ export function Hero() {
           </p>
           <p className="hero__pitch">{pitch}</p>
           <div className="hero__actions">
-            <Button variant="primary" href="#contacto" icon="arrow">Hablemos</Button>
-            <Button variant="ghost" href="#experiencia">Ver experiencia</Button>
+            <Button variant="primary" href="#contacto" icon="arrow">{t.letsTalk}</Button>
+            <Button variant="ghost" href="#experiencia">{t.viewExperience}</Button>
             <button type="button" className="btn btn--ghost" onClick={() => setCvOpen(true)}>
-              <Icon id="download" /> Ver CV
+              <Icon id="download" /> {t.viewCv}
             </button>
           </div>
           <HeroMetaList items={meta} />

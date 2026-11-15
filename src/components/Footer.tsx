@@ -1,9 +1,12 @@
+import { useT } from '../i18n/ui';
+
 export function Footer() {
   const year = new Date().getFullYear();
+  const t = useT();
 
   return (
     <footer className="site-footer">
-      <span>Hecho con cuidado por Daniel Gutiérrez · {year}</span>
+      <span>{t.footer(year)}</span>
     </footer>
   );
 }

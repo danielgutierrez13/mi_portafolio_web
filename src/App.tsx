@@ -1,3 +1,5 @@
+import { Analytics } from '@vercel/analytics/react';
+import { LangProvider } from './i18n/LangProvider';
 import { ThemeProvider } from './context/ThemeProvider';
 import { SVGSprite } from './components/SVGSprite';
 import { Nav } from './components/Nav';
@@ -15,6 +17,7 @@ import { Footer } from './components/Footer';
 
 export default function App() {
   return (
+    <LangProvider>
     <ThemeProvider>
       <SVGSprite />
       <Nav />
@@ -31,6 +34,8 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      <Analytics />
     </ThemeProvider>
+    </LangProvider>
   );
 }

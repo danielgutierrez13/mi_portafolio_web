@@ -6,30 +6,23 @@ import { Section } from '../../layout/Section';
 import { ProjectLightbox } from './ProjectLightbox';
 import { useSwipe } from '../../../hooks/useSwipe';
 import { useTilt } from '../../../hooks/useTilt';
-import { PROJECTS, type ProjectItem, type ProjectCategory } from '../../../data/projects';
+import { type ProjectItem, type ProjectCategory } from '../../../data/projects';
+import { useData } from '../../../i18n/useData';
+import { useT } from '../../../i18n/ui';
 
 type CategoryFilter = ProjectCategory | 'todos';
-
-const CATEGORY_TABS: ReadonlyArray<{ value: CategoryFilter; label: string }> = [
-  { value: 'todos', label: 'Todos' },
-  { value: 'laboral', label: 'Laborales' },
-  { value: 'personal', label: 'Personales' },
-];
 
 interface ProjectCardProps {
   readonly item: ProjectItem;
   readonly onOpen: (item: ProjectItem) => void;
 }
 
-const CATEGORY_LABELS: Record<ProjectCategory, string> = {
-  laboral: 'Laboral',
-  personal: 'Personal',
-};
-
 function ProjectCard({ item, onOpen }: ProjectCardProps) {
   const { category, placeholder, badge, title, role, releases, description, contribLabel, bullets, chips, linkLabel } = item;
   const ref = useRef<HTMLDivElement>(null);
   useTilt(ref);
+  const t = useT();
+  const categoryLabels: Record<ProjectCategory, string> = { laboral: t.categoryWork, personal: t.categoryPersonal };
 
   return (
     <div className={`project-card${placeholder ? ' project-card--placeholder' : ''}`} ref={ref}>
@@ -45,12 +38,12 @@ function ProjectCard({ item, onOpen }: ProjectCardProps) {
             <div className="project-preview-ui__tiles"><i /><i /><i /></div>
           </div>
         )}
-        <span className="project-card__preview-hint">Vista del proyecto</span>
+        <span className="project-card__preview-hint">{t.projectPreview}</span>
       </div>
       <div className="project-card__badges">
         {badge && <span className="project-card__badge">{badge}</span>}
         <span className={`project-card__category project-card__category--${category}`}>
-          {CATEGORY_LABELS[category]}
+          {categoryLabels[category]}
         </span>
       </div>
       <div className="project-card__top">
@@ -76,6 +69,13 @@ export function Projects() {
   const [category, setCategory] = useState<CategoryFilter>('todos');
   const [current, setCurrent] = useState(0);
   const [perPage, setPerPage] = useState(2);
+  const { PROJECTS } = useData();
+  const t = useT();
+  const categoryTabs: ReadonlyArray<{ value: CategoryFilter; label: string }> = [
+    { value: 'todos', label: t.tabAll },
+    { value: 'laboral', label: t.tabWork },
+    { value: 'personal', label: t.tabPersonal },
+  ];
   const { eyebrow, heading, description, items: allItems } = PROJECTS;
   const items = allItems.filter((item) => category === 'todos' || item.category === category);
 
@@ -110,8 +110,8 @@ export function Projects() {
   return (
     <Section id="proyectos" bg={['folder', 'terminal', 'star', 'external', 'layers']}>
       <SectionHead eyebrow={eyebrow} heading={heading} description={description} />
-      <div className="projects-filter" role="tablist" aria-label="Categorías de proyectos">
-        {CATEGORY_TABS.map(({ value, label }) => (
+      <div className="projects-filter" role="tablist" aria-label={t.projectsFilterAria}>
+        {categoryTabs.map(({ value, label }) => (
           <button
             key={value}
             type="button"
@@ -130,7 +130,7 @@ export function Projects() {
             type="button"
             className="projects-carousel__nav"
             onClick={prev}
-            aria-label="Proyectos anteriores"
+            aria-label={t.prevProjects}
           >
             <Icon id="chevron-left" />
           </button>
@@ -143,19 +143,19 @@ export function Projects() {
             type="button"
             className="projects-carousel__nav"
             onClick={next}
-            aria-label="Siguientes proyectos"
+            aria-label={t.nextProjects}
           >
             <Icon id="chevron-right" />
           </button>
         </div>
-        <div className="projects-carousel__pagination" aria-label="Páginas de proyectos">
+        <div className="projects-carousel__pagination" aria-label={t.pagesAria}>
           {Array.from({ length: pages }, (_, page) => (
             <button
               key={page}
               type="button"
               className={`projects-carousel__dot${page === safeCurrent ? ' is-active' : ''}`}
               onClick={() => go(page)}
-              aria-label={`Ir a la página ${page + 1}`}
+              aria-label={t.goToPage(page + 1)}
               aria-current={page === safeCurrent ? 'true' : undefined}
             />
           ))}

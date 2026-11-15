@@ -3,7 +3,8 @@ import { useCountUp } from '../../../hooks/useCountUp';
 import { SectionHead } from '../../ui/SectionHead';
 import { TechChipRow } from '../../ui/TechChipRow';
 import { Section } from '../../layout/Section';
-import { STACK, type SkillGroup } from '../../../data/stack';
+import { type SkillGroup } from '../../../data/stack';
+import { useData } from '../../../i18n/useData';
 import { TECH_LOGOS } from '../../../data/techLogos';
 
 interface MetricTileProps {
@@ -35,6 +36,7 @@ function SkillCard({ label, chips, index }: SkillGroup & { index: number }) {
 
 export function Stack() {
   const ref = useScrollReveal();
+  const { STACK } = useData();
   const { eyebrow, heading, description, metrics, skills } = STACK;
 
   return (

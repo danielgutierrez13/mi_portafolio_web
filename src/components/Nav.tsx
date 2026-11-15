@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import { useTheme } from '../context/useTheme';
 import { Icon } from './ui/Icon';
 import { Button } from './ui/Button';
-import { NAV_LINKS } from '../data/nav';
+import { useData } from '../i18n/useData';
+import { useT } from '../i18n/ui';
+import { useLang } from '../i18n/useLang';
 
 export function Nav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,6 +12,9 @@ export function Nav() {
   const [progress, setProgress] = useState(0);
   const [activeId, setActiveId] = useState<string>('');
   const { isDark, toggle } = useTheme();
+  const { NAV_LINKS } = useData();
+  const t = useT();
+  const { toggle: toggleLang } = useLang();
 
   const closeMenu = () => setIsOpen(false);
 
@@ -45,7 +50,7 @@ export function Nav() {
     );
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
-  }, []);
+  }, [NAV_LINKS]);
 
   return (
     <header className={`nav${isOpen ? ' is-open' : ''}${scrolled ? ' is-scrolled' : ''}`} id="nav">
@@ -80,21 +85,25 @@ export function Nav() {
               const r = e.currentTarget.getBoundingClientRect();
               toggle({ x: r.left + r.width / 2, y: r.top + r.height / 2 });
             }}
-            aria-label={isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+            aria-label={isDark ? t.themeToLight : t.themeToDark}
             aria-pressed={isDark}
           >
             <Icon id="sun" className="icon-sun" />
             <Icon id="moon" className="icon-moon" />
           </button>
 
+          <button type="button" className="lang-toggle" onClick={toggleLang} aria-label={t.langAria}>
+            {t.langButton}
+          </button>
+
           <Button variant="primary" href="#contacto" className="nav__cta">
-            Contactar
+            {t.contactCta}
           </Button>
 
           <button
             className="nav__toggle"
             onClick={() => setIsOpen(prev => !prev)}
-            aria-label={isOpen ? 'Cerrar menú' : 'Abrir menú'}
+            aria-label={isOpen ? t.closeMenu : t.openMenu}
             aria-expanded={isOpen}
           >
             <Icon id="menu" className="icon--menu" />

@@ -5,9 +5,11 @@ import { TechChipRow } from '../../ui/TechChipRow';
 import { Icon } from '../../ui/Icon';
 import { Lightbox } from '../../ui/Lightbox';
 import { Section } from '../../layout/Section';
-import { EXPERIENCE, REFERENCES, type ExperienceItem, type Modality } from '../../../data/experience';
+import { type ExperienceItem, type Modality } from '../../../data/experience';
+import { useData } from '../../../i18n/useData';
+import { useT, type UiStrings } from '../../../i18n/ui';
 
-function parseDuration(dateRange: string): string {
+function parseDuration(dateRange: string, t: UiStrings): string {
   const [startStr, endStr] = dateRange.split(' → ');
   const [startY, startM] = startStr.split('.').map(Number);
   const now = new Date();
@@ -22,18 +24,8 @@ function parseDuration(dateRange: string): string {
   if (endStr !== 'actual') months += 1;
   const years = Math.floor(months / 12);
   const rem = months % 12;
-  if (years === 0) return rem === 1 ? '1 mes' : `${rem} meses`;
-  if (rem === 0) return years === 1 ? '1 año' : `${years} años`;
-  const yPart = years === 1 ? '1 año' : `${years} años`;
-  const mPart = rem === 1 ? '1 mes' : `${rem} meses`;
-  return `${yPart} ${mPart}`;
+  return t.duration(years, rem);
 }
-
-const MODALITY_LABEL: Record<Modality, string> = {
-  remoto: 'Remoto',
-  hibrido: 'Híbrido',
-  presencial: 'Presencial',
-};
 
 const MODALITY_ICON: Record<Modality, string> = {
   remoto: 'globe',
@@ -45,16 +37,17 @@ interface StatusTagProps {
   readonly active: boolean;
 }
 function StatusTag({ active }: StatusTagProps) {
+  const t = useT();
   if (active) {
     return (
       <span className="tag-status tag-status--active">
-        <span className="dot-live" aria-hidden="true" />en producción
+        <span className="dot-live" aria-hidden="true" />{t.inProduction}
       </span>
     );
   }
   return (
     <span className="tag-status tag-status--done">
-      <Icon id="check" />completado
+      <Icon id="check" />{t.completed}
     </span>
   );
 }
@@ -68,6 +61,8 @@ function TimelineCard({ item, onOpenCert }: TimelineCardProps) {
   const bodyId = useId();
   const { active, date, title, meta, modality, bullets, chips, certificate } = item;
   const [open, setOpen] = useState(active);
+  const t = useT();
+  const dateLabel = date.replace('actual', t.present);
 
   return (
     <div className={`timeline-item${active ? ' timeline-item--active' : ''} reveal`} ref={ref}>
@@ -80,11 +75,11 @@ function TimelineCard({ item, onOpenCert }: TimelineCardProps) {
           aria-controls={bodyId}
         >
           <div className="timeline-card__top">
-            <span className="tag-date">{date}</span>
-            <span className="tag-duration">{parseDuration(date)}</span>
+            <span className="tag-date">{dateLabel}</span>
+            <span className="tag-duration">{parseDuration(date, t)}</span>
             <span className="modality-tag">
               <Icon id={MODALITY_ICON[modality]} />
-              {MODALITY_LABEL[modality]}
+              {t.modality[modality]}
             </span>
             <StatusTag active={active} />
           </div>
@@ -100,13 +95,13 @@ function TimelineCard({ item, onOpenCert }: TimelineCardProps) {
               {bullets.map((b) => <li key={b}>{b}</li>)}
             </ul>
             <div className="timeline-card__skills">
-              <span className="timeline-card__skills-label">Skills</span>
+              <span className="timeline-card__skills-label">{t.skills}</span>
               <TechChipRow chips={chips} />
             </div>
             {certificate && (
               <button type="button" className="edu-card__doc-btn" onClick={() => onOpenCert(item)}>
                 <Icon id={certificate.toLowerCase().endsWith('.pdf') ? 'external' : 'image'} />
-                Ver constancia de trabajo
+                {t.viewCertificate}
               </button>
             )}
           </div>
@@ -121,6 +116,7 @@ interface CertLightboxProps {
   readonly onClose: () => void;
 }
 function WorkCertLightbox({ item, onClose }: CertLightboxProps) {
+  const t = useT();
   return (
     <Lightbox isOpen={item !== null} onClose={onClose} labelId="workCertLightboxTitle">
       {item && (
@@ -128,19 +124,19 @@ function WorkCertLightbox({ item, onClose }: CertLightboxProps) {
           <div className="lightbox__image-wrap">
             {item.certificate ? (
               item.certificate.toLowerCase().endsWith('.pdf')
-                ? <iframe src={item.certificate} title={`Certificado: ${item.title}`} className="lightbox__pdf" />
-                : <img src={item.certificate} alt={`Certificado: ${item.title}`} />
+                ? <iframe src={item.certificate} title={`${t.certificatePrefix}${item.title}`} className="lightbox__pdf" />
+                : <img src={item.certificate} alt={`${t.certificatePrefix}${item.title}`} />
             ) : (
               <div className="lightbox__placeholder">
                 <Icon id="image" />
-                <span>Certificado de trabajo pendiente de subir</span>
+                <span>{t.certPendingWork}</span>
               </div>
             )}
           </div>
           <div className="lightbox__meta">
             <span className="lightbox__provider">{item.meta}</span>
             <h3 id="workCertLightboxTitle">{item.title}</h3>
-            <p className="lightbox__nolink">{item.date}</p>
+            <p className="lightbox__nolink">{item.date.replace('actual', t.present)}</p>
           </div>
         </>
       )}
@@ -150,10 +146,12 @@ function WorkCertLightbox({ item, onClose }: CertLightboxProps) {
 
 function ReferencesBlock() {
   const ref = useScrollReveal();
+  const t = useT();
+  const { REFERENCES } = useData();
   return (
     <div className="references reveal" ref={ref}>
       <h3 className="references__heading">
-        <Icon id="check" /> Referencias profesionales
+        <Icon id="check" /> {t.references}
       </h3>
       <div className="references__grid">
         {REFERENCES.map((r) => (
@@ -169,7 +167,7 @@ function ReferencesBlock() {
             </div>
             <div className="ref-card__links">
               {r.phone && (
-                <a href={`tel:${r.phone.replace(/\s/g, '')}`} aria-label="Teléfono" className="ref-card__link">
+                <a href={`tel:${r.phone.replace(/\s/g, '')}`} aria-label={t.phoneLabel} className="ref-card__link">
                   <Icon id="phone" />
                 </a>
               )}
@@ -193,13 +191,15 @@ function ReferencesBlock() {
 
 export function Experience() {
   const [activeCert, setActiveCert] = useState<ExperienceItem | null>(null);
+  const { EXPERIENCE } = useData();
+  const t = useT();
 
   return (
     <Section id="experiencia" bg={['briefcase', 'calendar', 'terminal', 'check', 'bolt']}>
       <SectionHead
-        eyebrow="// historial-de-despliegues"
-        heading="Experiencia profesional"
-        description="Cada etapa, registrada como un release: con fecha, estado y lo que se entregó."
+        eyebrow={t.expEyebrow}
+        heading={t.expHeading}
+        description={t.expDescription}
       />
       <div className="timeline">
         {EXPERIENCE.map((item) => (

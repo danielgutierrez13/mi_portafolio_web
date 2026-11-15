@@ -1,3 +1,5 @@
+import { OFFICIAL_ICONS } from './officialIcons';
+
 export interface TechIcon {
   readonly color: string;
   readonly path: string;
@@ -195,9 +197,17 @@ export const TECH_ICON_MAP: Record<string, TechIcon> = {
   }
 };
 
-// Alias: mismos logos bajo otros nombres de chip.
-TECH_ICON_MAP[".NET"] = TECH_ICON_MAP[".Net"];
-TECH_ICON_MAP["UiPath"] = TECH_ICON_MAP["RPA UiPath"];
-TECH_ICON_MAP["Orchestrator"] = TECH_ICON_MAP["RPA UiPath"];
-TECH_ICON_MAP["REFramework"] = TECH_ICON_MAP["RPA UiPath"];
-TECH_ICON_MAP["GitHub Copilot"] = { ...TECH_ICON_MAP["Git & GitHub"], color: "#8957E5" };
+// Logos oficiales (simple-icons) sobrescriben los dibujados a mano.
+Object.assign(TECH_ICON_MAP, OFFICIAL_ICONS);
+
+// Alias para chips sin logo propio.
+TECH_ICON_MAP["Azure DevOps"] ??= TECH_ICON_MAP["Azure"];
+TECH_ICON_MAP["CloudWatch"] ??= TECH_ICON_MAP["AWS"];
+TECH_ICON_MAP["Java 17"] ??= TECH_ICON_MAP["Java"];
+TECH_ICON_MAP["REST APIs"] ??= TECH_ICON_MAP["API-First"];
+TECH_ICON_MAP["AngularJS"] ??= { ...TECH_ICON_MAP["Angular"], color: "#E23237" };
+// SOLID: pila de bloques (principios de diseño).
+TECH_ICON_MAP["SOLID"] ??= {
+  color: "#6366F1",
+  path: "M12 2 2 7l10 5 10-5-10-5zm-8.200 9.300L2 12l10 5 10-5-1.800-.7L12 15 3.800 11.300zm0 4.500L2 16.500l10 5 10-5-1.800-.7L12 19.500 3.800 15.800z"
+};

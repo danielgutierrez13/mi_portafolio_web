@@ -6,7 +6,9 @@ import { Icon } from '../../ui/Icon';
 import { Lightbox } from '../../ui/Lightbox';
 import { Section } from '../../layout/Section';
 import { CertLightbox } from './CertLightbox';
-import { EDUCATION, type Degree, type CertGroup, type Cert } from '../../../data/education';
+import { type Degree, type CertGroup, type Cert } from '../../../data/education';
+import { useData } from '../../../i18n/useData';
+import { useT } from '../../../i18n/ui';
 
 interface EduCardProps {
   readonly degree: Degree;
@@ -15,6 +17,7 @@ interface EduCardProps {
 
 function EduCard({ degree, onOpen }: EduCardProps) {
   const { icon, institution, degree: degreeText, date, document } = degree;
+  const t = useT();
   return (
     <div className="edu-card">
       <div className="edu-card__head">
@@ -27,7 +30,7 @@ function EduCard({ degree, onOpen }: EduCardProps) {
       </div>
       <button type="button" className="edu-card__doc-btn" onClick={() => onOpen(degree)}>
         <Icon id={document ? (document.toLowerCase().endsWith('.pdf') ? 'external' : 'image') : 'image'} />
-        {document ? 'Ver diploma' : 'Diploma pendiente de subir'}
+        {document ? t.viewDiploma : t.diplomaPending}
       </button>
     </div>
   );
@@ -39,6 +42,7 @@ interface DegreeLightboxProps {
 }
 
 function DegreeLightbox({ degree, onClose }: DegreeLightboxProps) {
+  const t = useT();
   return (
     <Lightbox isOpen={degree !== null} onClose={onClose} labelId="degreeLightboxTitle">
       {degree && (
@@ -46,12 +50,12 @@ function DegreeLightbox({ degree, onClose }: DegreeLightboxProps) {
           <div className="lightbox__image-wrap">
             {degree.document ? (
               degree.document.toLowerCase().endsWith('.pdf')
-                ? <iframe src={degree.document} title={`Diploma: ${degree.degree}`} className="lightbox__pdf" />
-                : <img src={degree.document} alt={`Diploma: ${degree.degree}`} />
+                ? <iframe src={degree.document} title={`${t.diplomaPrefix}${degree.degree}`} className="lightbox__pdf" />
+                : <img src={degree.document} alt={`${t.diplomaPrefix}${degree.degree}`} />
             ) : (
               <div className="lightbox__placeholder">
                 <Icon id="image" />
-                <span>Imagen o PDF del diploma pendiente de subir</span>
+                <span>{t.diplomaFilePending}</span>
               </div>
             )}
           </div>
@@ -85,6 +89,7 @@ interface CertCardProps {
   readonly onOpen: (c: Cert) => void;
 }
 function CertCard({ group, onOpen }: CertCardProps) {
+  const t = useT();
   const [expanded, setExpanded] = useState(false);
   const visible = expanded ? group.certs : group.certs.slice(0, CERT_PREVIEW);
   const hidden = group.certs.length - CERT_PREVIEW;
@@ -97,12 +102,12 @@ function CertCard({ group, onOpen }: CertCardProps) {
         ))}
         {!expanded && hidden > 0 && (
           <button type="button" className="chip cert-card__more" onClick={() => setExpanded(true)}>
-            +{hidden} más
+            {t.moreCerts(hidden)}
           </button>
         )}
         {expanded && hidden > 0 && (
           <button type="button" className="chip cert-card__more" onClick={() => setExpanded(false)}>
-            Ver menos
+            {t.seeLess}
           </button>
         )}
       </div>
@@ -127,6 +132,8 @@ export function Education() {
   const [current, setCurrent] = useState(0);
   const perPage = usePerPage();
   const degreeRef = useScrollReveal();
+  const { EDUCATION } = useData();
+  const t = useT();
   const { eyebrow, heading, description, degrees, certGroups } = EDUCATION;
 
   const pages = Math.ceil(certGroups.length / perPage);
@@ -151,7 +158,7 @@ export function Education() {
         </div>
         <div className="cert-carousel">
           <div className="cert-carousel__row">
-            <button type="button" className="projects-carousel__nav" onClick={prev} aria-label="Anteriores">
+            <button type="button" className="projects-carousel__nav" onClick={prev} aria-label={t.prevCerts}>
               <Icon id="chevron-left" />
             </button>
             <div className="cert-grid" ref={certRef}>
@@ -159,7 +166,7 @@ export function Education() {
                 <CertCard key={group.id} group={group} onOpen={setActiveCert} />
               ))}
             </div>
-            <button type="button" className="projects-carousel__nav" onClick={next} aria-label="Siguientes">
+            <button type="button" className="projects-carousel__nav" onClick={next} aria-label={t.nextCerts}>
               <Icon id="chevron-right" />
             </button>
           </div>

@@ -2,7 +2,8 @@ import { useScrollReveal } from '../../../hooks/useScrollReveal';
 import { SectionHead } from '../../ui/SectionHead';
 import { Icon } from '../../ui/Icon';
 import { Section } from '../../layout/Section';
-import { OPEN_SOURCE, type Repo } from '../../../data/opensource';
+import { type Repo } from '../../../data/opensource';
+import { useData } from '../../../i18n/useData';
 
 function RepoCard({ name, description, language, url }: Repo) {
   const ref = useScrollReveal<HTMLAnchorElement>();
@@ -24,6 +25,7 @@ function RepoCard({ name, description, language, url }: Repo) {
 
 export function OpenSource() {
   const ref = useScrollReveal<HTMLAnchorElement>();
+  const { OPEN_SOURCE } = useData();
   const { eyebrow, heading, description, user, profileUrl, repos } = OPEN_SOURCE;
 
   return (
