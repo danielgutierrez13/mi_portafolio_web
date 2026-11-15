@@ -40,6 +40,10 @@ html[data-theme="dark"] .tech-marquee__logo {
   color: var(--ink-soft);
   white-space: nowrap;
 }
+@media (prefers-reduced-motion: reduce) {
+  .tech-marquee__track { animation: none; }
+  .tech-marquee { overflow-x: auto; }
+}
 @keyframes tech-scroll {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }

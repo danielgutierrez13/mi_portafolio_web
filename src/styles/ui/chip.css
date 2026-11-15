@@ -16,9 +16,12 @@
   padding-left: 10px;
   transition: background .18s ease, transform .18s ease;
 }
+.chip--logo {
+  background: color-mix(in srgb, var(--logo-color) 8%, var(--bg-alt));
+}
 .chip--logo:hover {
   transform: translateY(-2px);
-  background: color-mix(in srgb, var(--logo-color) 16%, var(--bg-alt));
+  background: color-mix(in srgb, var(--logo-color) 18%, var(--bg-alt));
 }
 .chip__logo {
   width: 14px; height: 14px;

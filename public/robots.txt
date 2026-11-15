@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://daniel-gutierrez-portafolio.vercel.app/sitemap.xml
